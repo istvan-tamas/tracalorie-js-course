@@ -24,6 +24,9 @@ const ItemCtrl = (function(){
         getItems: function(){
             return data.items;
         },
+        setItem: function(food,calorie){
+            data.items.push({id: 3, name: food, calories: calorie});
+        },
         logData: function(){
             return data;
         }
@@ -33,9 +36,17 @@ const ItemCtrl = (function(){
 
 // UI controller
 const UICtrl = (function(){
+
     const UISelectors = {
-        itemList: "#item-list"
+        itemList: "#item-list",
+        addFood: "#item-name",
+        addCalories: "#item-calories"
     };
+
+    const EventListeners = {
+        add: ".add-btn"
+    };
+
 
     return {
         populateItemList: function(items){
@@ -46,7 +57,19 @@ const UICtrl = (function(){
             // Insert into HTML
 
             document.querySelector(UISelectors.itemList).innerHTML = html;
+        },
+        addEventListeners: function(){
+            document.querySelector(EventListeners.add).addEventListener("click",UICtrl.addItem);
+        },
+        addItem: function(e){
+            e.preventDefault();
+            let itemName = document.querySelector(UISelectors.addFood).value;
+            let itemCalories = document.querySelector(UISelectors.addCalories).value;
+            ItemCtrl.setItem(itemName, itemCalories);
+            console.log(ItemCtrl.getItems());
+            App.refresh();
         }
+
     };
 })();
 
@@ -55,6 +78,11 @@ const App = (function(ItemCtrl, UI,Ctrl){
     return {
         init: function(){
             const items = ItemCtrl.getItems();
+            UICtrl.populateItemList(items);
+            UICtrl.addEventListeners();
+        },
+        refresh: function() {
+            items = ItemCtrl.getItems();
             UICtrl.populateItemList(items);
         }
     }
