@@ -24,8 +24,20 @@ const ItemCtrl = (function(){
         getItems: function(){
             return data.items;
         },
-        setItem: function(food,calorie){
-            data.items.push({id: 3, name: food, calories: calorie});
+        addItem: function(name,calories){
+            let ID;
+            if(data.items.length > 0){
+                ID = data.items[data.items.length - 1].id + 1;
+            }else{
+                ID = 0;
+            }
+            const cal = parseInt(calories);
+
+            // new item
+
+            newItem = new Item(ID,name,cal);
+            data.items.push(newItem);
+            return newItem;
         },
         logData: function(){
             return data;
@@ -39,12 +51,9 @@ const UICtrl = (function(){
 
     const UISelectors = {
         itemList: "#item-list",
-        addFood: "#item-name",
-        addCalories: "#item-calories"
-    };
-
-    const EventListeners = {
-        add: ".add-btn"
+        itemNameInput: "#item-name",
+        itemCaloriesInput: "#item-calories",
+        addBtn: ".add-btn"
     };
 
 
@@ -61,13 +70,14 @@ const UICtrl = (function(){
         addEventListeners: function(){
             document.querySelector(EventListeners.add).addEventListener("click",UICtrl.addItem);
         },
-        addItem: function(e){
-            e.preventDefault();
-            let itemName = document.querySelector(UISelectors.addFood).value;
-            let itemCalories = document.querySelector(UISelectors.addCalories).value;
-            ItemCtrl.setItem(itemName, itemCalories);
-            console.log(ItemCtrl.getItems());
-            App.refresh();
+        getItemInput: function(){
+            return {
+                name: document.querySelector(UISelectors.itemNameInput).value,
+                calories:document.querySelector(UISelectors.itemCaloriesInput).value
+            }
+        },
+        getSelectors: function(){
+            return UISelectors;
         }
 
     };
@@ -75,15 +85,32 @@ const UICtrl = (function(){
 
 // App controller
 const App = (function(ItemCtrl, UI,Ctrl){
+    const loadEventListeners = function(){
+        const UISelectors = UICtrl.getSelectors();
+
+        document.querySelector(UISelectors.addBtn).addEventListener("click", itemAddSubmit);
+    }
+
+    const itemAddSubmit = function(e){
+        e.preventDefault();
+        const input = UICtrl.getItemInput();
+
+        if(input.name !== '' && input.calories !== ''){
+            const newItem = ItemCtrl.addItem(input.name,input.calories);
+        }
+
+        
+
+    }
+
+
     return {
         init: function(){
             const items = ItemCtrl.getItems();
             UICtrl.populateItemList(items);
-            UICtrl.addEventListeners();
-        },
-        refresh: function() {
-            items = ItemCtrl.getItems();
-            UICtrl.populateItemList(items);
+
+
+            loadEventListeners();
         }
     }
 
