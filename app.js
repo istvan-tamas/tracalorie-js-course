@@ -160,7 +160,9 @@ const App = (function(ItemCtrl, UI,Ctrl){
 
         document.querySelector(UISelectors.addBtn).addEventListener("click", itemAddSubmit);
 
-        document.querySelector(UISelectors.itemList).addEventListener("click",itemUpdateSubmit);    }
+        document.querySelector(UISelectors.itemList).addEventListener("click",itemEditClick); 
+    
+    }
 
 
 
@@ -182,7 +184,7 @@ const App = (function(ItemCtrl, UI,Ctrl){
         }    
     }
 
-    const itemUpdateSubmit = function(e){
+    const itemEditClick = function(e){
         if(e.target.classList.contains('edit-item')){
             const listID = e.target.parentNode.parentNode.id;
             
