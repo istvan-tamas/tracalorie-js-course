@@ -199,7 +199,12 @@ const App = (function(ItemCtrl, UI,Ctrl){
         document.querySelector(UISelectors.itemList).addEventListener("click",itemEditClick);
 
 
-        document.querySelector(UISelectors.updateBtn).addEventListener("click",itemUpdateSubmit);        
+        document.querySelector(UISelectors.updateBtn).addEventListener("click",itemUpdateSubmit);     
+        
+        document.querySelector(UISelectors.deleteBtn).addEventListener("click",itemDeleteSubmit);  
+
+
+        document.querySelector(UISelectors.backBtn).addEventListener("click",UICtrl.clearEditState);  
     
     }
 
@@ -224,6 +229,7 @@ const App = (function(ItemCtrl, UI,Ctrl){
     }
 
     const itemEditClick = function(e){
+        e.preventDefault();
         if(e.target.classList.contains('edit-item')){
             const listID = e.target.parentNode.parentNode.id;
             
@@ -240,11 +246,11 @@ const App = (function(ItemCtrl, UI,Ctrl){
             UICtrl.addItemToForm();
 
         }
-        e.preventDefault();
+        
     }
 
     const itemUpdateSubmit = function(e){
-
+        e.preventDefault();
         const input = UICtrl.getItemInput();
 
         const updatedItem = ItemCtrl.updateItem(input.name, input.calories);
@@ -258,7 +264,11 @@ const App = (function(ItemCtrl, UI,Ctrl){
 
         UICtrl.clearEditState();
 
-        e.preventDefault();
+       
+    }
+
+    const itemDeleteSubmit = function(){
+
     }
 
 
