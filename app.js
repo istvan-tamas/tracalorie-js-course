@@ -232,7 +232,7 @@ const App = (function(ItemCtrl, UI,Ctrl){
         document.querySelector(UISelectors.deleteBtn).addEventListener("click",itemDeleteSubmit);  
 
 
-        document.querySelector(UISelectors.backBtn).addEventListener("click", UICtrl.clearEditState);
+        document.querySelector(UISelectors.backBtn).addEventListener("click", back);
 
         document.querySelector(UISelectors.clearAll).addEventListener("click", clearAllItemsClick);  
     
@@ -256,6 +256,13 @@ const App = (function(ItemCtrl, UI,Ctrl){
 
             UICtrl.clearInput();
         }    
+    }
+
+    const back = function(e){
+        e.preventDefault();
+        UICtrl.clearInput();
+        UICtrl.clearEditState();
+
     }
 
     const itemEditClick = function(e){
