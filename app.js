@@ -144,7 +144,6 @@ const UICtrl = (function(){
         clearAll: '.clear-btn'
     };
 
-
     return {
         populateItemList: function(items){
             let html = "";
@@ -255,19 +254,15 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
 
         document.querySelector(UISelectors.itemList).addEventListener("click",itemEditClick);
 
-
         document.querySelector(UISelectors.updateBtn).addEventListener("click",itemUpdateSubmit);     
         
         document.querySelector(UISelectors.deleteBtn).addEventListener("click",itemDeleteSubmit);  
-
 
         document.querySelector(UISelectors.backBtn).addEventListener("click", back);
 
         document.querySelector(UISelectors.clearAll).addEventListener("click", clearAllItemsClick);  
     
     }
-
-
 
     const itemAddSubmit = function(e){
         e.preventDefault();
@@ -304,24 +299,22 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
             
             const id = parseInt(listIDArr[1]);
 
-
             const itemToEdit = ItemCtrl.getItemByID(id);
             
             ItemCtrl.setCurrentItem(itemToEdit);
 
-
             UICtrl.addItemToForm();
 
-        }
-        
+        }      
     }
 
     const itemUpdateSubmit = function(e){
+
         e.preventDefault();
+
         const input = UICtrl.getItemInput();
 
         const updatedItem = ItemCtrl.updateItem(input.name, input.calories);
-
 
         UICtrl.updateListItem(updatedItem);
 
@@ -335,7 +328,9 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
     }
 
     const clearAllItemsClick = function(e){
+
         e.preventDefault();
+
         ItemCtrl.clearAll();
 
         const totalCalories = ItemCtrl.getTotalCalories();
@@ -343,9 +338,8 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
         UICtrl.showTotalCalories(totalCalories);
 
         UICtrl.removeItems();
-        UICtrl.hideList();
 
-        
+        UICtrl.hideList();
 
     }
 
@@ -364,9 +358,6 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
         UICtrl.clearEditState();
         
     }
-
-
-
 
     return {
         init: function(){
@@ -394,8 +385,4 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
 
 })(ItemCtrl, StorageCtrl, UICtrl);
 
-
-//
-
 App.init();
-
