@@ -1,5 +1,5 @@
-# tracalorie-js app
-----------------------
+tracalorie-js app
+-------------------
 
 Following the instructions to buld a simple calorie counting JS app.
 
