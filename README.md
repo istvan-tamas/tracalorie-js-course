@@ -1,6 +1,6 @@
 tracalorie-js app
--------------------
+-----------------
 
-Following the instructions to buld a simple calorie counting JS app.
+Buildint the tracalorie app by using Brad's course on Udemy
 
-Data is stored in local storage.
+To save data local storage is used.
